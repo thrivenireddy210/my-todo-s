@@ -1,0 +1,36 @@
+.mytodos-container {
+    margin-top: 50px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .actions button {
+    margin-left: 10px;
+  }
+  
+  .event-card {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .event-card .card-body {
+    padding: 15px;
+  }
+  
+  .event-card .card-footer {
+    padding: 10px 15px;
+    border-top: 1px solid #ddd;
+    text-align: right;
+  }
+  
