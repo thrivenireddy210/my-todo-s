@@ -14,6 +14,7 @@ import { Trash, Pencil, Plus } from 'react-bootstrap-icons';
 import EditSubEventPopup from '../Popups/EditSubEventPopup';
 import AddSubEventPopup from '../Popups/AddSubEventPopup';
 import CustomHeader from './CustomHeader';
+import EditEventPopup from '../Popups/EditEventPopup';
 // import CustomHeader from './customHeader';
 
 const localizer = momentLocalizer(moment);
@@ -98,7 +99,7 @@ const MyToDos = () => {
   });
 
   const [showModal, setShowModal] = useState(false);
-
+  const [showEditEventPopup, setShowEditEventPopup] = useState(false);
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
@@ -126,12 +127,16 @@ const MyToDos = () => {
     }
   };
 
-  const handleEditEvent = (event) => {
-   
-  };
+  // const handleSubmitEditedEvent = (eventId, editedEventData) => {
+  //   const updatedEvents = events.map((event) =>
+  //     event.id === eventId ? { ...event, ...editedEventData } : event
+  //   );
+  //   setEvents(updatedEvents);
+  // };
 
   const handleDeleteEvent = (eventId) => {
-   
+    const updatedEvents = events.filter((event) => event.id !== eventId);
+    setEvents(updatedEvents);
   };
   const handleOpenAddSubEventPopup = (event) => {
     setSelectedEvent(event);
@@ -215,12 +220,24 @@ const MyToDos = () => {
     setEvents(updatedEvents);
     handleCloseEditSubEventPopup();
   };
+  const handleEditEvent = (event) => {
+    setSelectedEvent(event);
+    setShowEditEventPopup(true);
+  };
 
+  
   const deleteEvent = (id) => {
     const filteredEvents = events.filter((event) => event.id !== id);
     setEvents(filteredEvents);
   };
-
+  const handleSubmitEditedEvent = (eventId, editedEventData) => {
+    const updatedEvents = events.map((event) =>
+      event.id === eventId ? { ...event, ...editedEventData } : event
+    );
+    setEvents(updatedEvents);
+    setShowEditEventPopup(false);
+  };
+  
   const [showLeavePopup, setShowLeavePopup] = useState(false);
   const [showEventPopup, setShowEventPopup] = useState(false);
 
@@ -399,6 +416,14 @@ const MyToDos = () => {
       onClose={handleCloseAddSubEventPopup}
       onSubmit={handleSubmitNewSubEvent}
     />
+     {showEditEventPopup && (
+        <EditEventPopup
+          event={selectedEvent}
+          onClose={() => setShowEditEventPopup(false)}
+          onSubmit={handleSubmitEditedEvent}
+          onSave={handleSubmitEditedEvent}
+        />
+      )}
     {selectedSubEvent && (
       <EditSubEventPopup
         show={showEditSubEventPopup}
